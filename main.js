@@ -26,7 +26,7 @@ for(var i = 0;i < keys.length;i++){
         div1.appendChild(kbd);
 
         var edit = document.createElement('button');
-        edit.textContent = "Edit";
+        edit.textContent = "E";
         edit.id = keys[i][j];
         kbd.appendChild(edit);
         
@@ -37,7 +37,7 @@ for(var i = 0;i < keys.length;i++){
             icon.src = "http://" + websites[keys[i][j]] + "/favicon.ico";
             kbd.appendChild(icon);
         }else{
-            icon.src = "./1.jpg";
+            icon.src = "./1.png";
             kbd.appendChild(icon);
         }
         icon.onerror = function(xxx){
@@ -53,8 +53,12 @@ for(var i = 0;i < keys.length;i++){
             localStorage.setItem('barrel',JSON.stringify(websites));
             //更新icon
             var newIcon = clickedEdit.target.nextSibling;
-            newIcon.src = "http://" + websites[editingKeyName] + "/favicon.ico";
             newIcon.alt = "icon";
+            if(websites[editingKeyName]){
+                newIcon.src = "http://" + websites[editingKeyName] + "/favicon.ico";
+            }else{
+                newIcon.src = "./1.png";
+            }
             newIcon.onerror = function(xxx){
                 xxx.target.src = "./funny.jpg";
             } 
@@ -65,8 +69,6 @@ for(var i = 0;i < keys.length;i++){
 
 //监听用户press
 document.onkeypress = function(pressedButton){
-    console.log(pressedButton.key);
-    console.log(websites[pressedButton.key]);
     var website = websites[pressedButton.key];
     window.open("http://" + website,"_blank");
 }
